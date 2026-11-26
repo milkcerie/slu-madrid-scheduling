@@ -18,6 +18,8 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+#'keys'/standardized language for organizing and homogenizing data
+
 DAYS = ["M", "T", "W", "Th"]
 DAY_WORDS = {"M": ["M"], "W": ["W"], "T": ["T"], "TH": ["Th"], "MONDAYS": ["M"],
              "TUESDAYS": ["T"], "WEDNESDAYS": ["W"], "THURSDAYS": ["Th"]}
@@ -96,7 +98,7 @@ def parse_days(text):
     return [d for d in DAYS if d in days]
 
 
-def parse_option(text, periods, course):
+def parse_option(text, periods, course): 
     """Return (days, period_ids, preferred_ids, notes) for one free-text availability option."""
     up = text.upper()
     days = parse_days(text)
@@ -172,7 +174,7 @@ def main(src, dst):
         issue("Info", "Courses", "Enrollment Auto-Count", f"Uses {formula} with a relative, hard-coded range",
               "Ignored; enrollment is recomputed from the Enrollments table")
 
-    # teacher availability
+    # checks for teacher availability for each course
     for row in ta.iter_rows(min_row=2, values_only=True):
         code_raw = clean_text(row[0])
         if not code_raw or code_raw.lower().startswith("notes"):
@@ -194,7 +196,7 @@ def main(src, dst):
             issue("Warning", "Availability", code, "No availability given",
                   "Assumed available any period M-Th; ask the director")
 
-    # students / enrollments
+    # students / enrollments, manage the course sizes and data/other class issues
     students, enroll = [], []
     for r in range(3, fe.max_row + 1):
         name = clean_text(fe.cell(r, 1).value)
