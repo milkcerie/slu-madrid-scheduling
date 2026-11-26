@@ -2,6 +2,7 @@
 // Same rules as the team's data-cleaning note (Data_Cleaning_Rules.md).
 import * as XLSX from 'xlsx'
 
+//see data cleaning py file - similar to standardized language for data conversions in that file
 export const DAYS = ['M', 'T', 'W', 'Th']
 export const DAY_NAMES = { M: 'Monday', T: 'Tuesday', W: 'Wednesday', Th: 'Thursday' }
 
